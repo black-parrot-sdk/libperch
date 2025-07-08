@@ -17,16 +17,16 @@
 %(perch_lib) --start-group --whole-archive -lperch --no-whole-archive --end-group
 
 *stack_var:
--Wl,--defsym=__stack_size_min=$WITH_STACK_SIZE
+--defsym=__stack_size_min=$WITH_STACK_SIZE
 
 *heap_var:
--Wl,--defsym=__heap_size_min=$WITH_HEAP_SIZE
+--defsym=__heap_size_min=$WITH_HEAP_SIZE
 
 *dram_var:
--Wl,--defsym=__dram_base=$WITH_DRAM_BASE
+--defsym=__dram_base=$WITH_DRAM_BASE
 
 *boot_var:
--Wl,--defsym=__boot_hart=$WITH_BOOT_HART
+--defsym=__boot_hart=$WITH_BOOT_HART
 
 *link:
 %(perch_link) %(stack_var) %(heap_var) %(dram_var) %(boot_var)

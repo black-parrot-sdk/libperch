@@ -39,8 +39,8 @@ libperch_hdrs := \
 libperch_lib := libperch.a
 libperch_data := $(libperch_specs)
 
-libperch_c_objs := $(libperch_c_srcs:.c:.o)
-libperch_asm_objs := $(libperch_asm_srcs:.S:.o)
+libperch_c_objs := $(libperch_c_srcs:.c=.o)
+libperch_asm_objs := $(libperch_asm_srcs:.S=.o)
 
 PERCH_PREFIX := $(WITH_PREFIX)/$(WITH_TRIPLE)
 PERCH_CC  := $(WITH_TRIPLE)-gcc

@@ -1,21 +1,4 @@
 
-# Equivalent to gcc options:
-# -mcmodel=medany -Wl,--start-group -lc -lgloss_dramfs -Wl,--end-group -lgcc -static -nostartfiles -dT dramfs.ld
-
-%rename cc1 perch_cc1
-%rename cc1plus perch_cc1plus
-%rename lib perch_lib
-%rename link perch_link
-
-*cc1:
-%(perch_cc1) -mcmodel=medany -mstrict-align
-
-*cc1plus:
-%(perch_cc1plus) -mcmodel=medany -mstrict-align
-
-*lib:
-%(perch_lib) --start-group --whole-archive -lperch --no-whole-archive --end-group
-
 *stack_var:
 --defsym=__stack_size_min=$WITH_STACK_SIZE
 
@@ -28,5 +11,23 @@
 *boot_var:
 --defsym=__boot_hart=$WITH_BOOT_HART
 
+*arch_var:
+-march=$WITH_MARCH -mabi=$WITH_MABI
+
+%rename cc1 perch_cc1
+%rename cc1plus perch_cc1plus
+%rename lib perch_lib
+%rename link perch_link
+
+*cc1:
+%(perch_cc1) -mstrict-align %(arch_var)
+
+*cc1plus:
+%(perch_cc1plus) -mstrict-align %(arch_var)
+
+*lib:
+%(perch_lib) --start-group --whole-archive -lperch --no-whole-archive --end-group
+
 *link:
 %(perch_link) %(stack_var) %(heap_var) %(dram_var) %(boot_var)
+

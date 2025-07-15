@@ -12,8 +12,6 @@
 extern "C" {
 #endif
 
-void bp_init(void) __attribute__((constructor));
-
 uint64_t bp_get_hart(void);
 
 void bp_barrier_end(volatile uint64_t *barrier_address, uint64_t total_num_cores);

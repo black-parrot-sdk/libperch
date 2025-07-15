@@ -1,25 +1,10 @@
 #include <stdint.h>
 #include <bp_utils.h>
 
-static uint64_t my_hart;
-
-void bp_init(void) {
-    __asm__ volatile("csrr %0, mhartid": "=r"(my_hart): :);
-}
-
 uint64_t bp_get_hart(void) {
+    uint64_t my_hart;
+    __asm__ volatile("csrr %0, mhartid": "=r"(my_hart): :);
     return my_hart;
-}
-
-void bp_barrier_end(volatile uint64_t *barrier_address, uint64_t total_num_cores) {
-    uint64_t atomic_inc = 1;
-    uint64_t atomic_result;
-    __asm__ volatile("amoadd.d %0, %2, (%1)": "=r"(atomic_result) 
-                                            : "r"(barrier_address), "r"(atomic_inc)
-                                            :);
-    
-    while(*barrier_address < total_num_cores);
-    bp_finish(0);
 }
 
 void bp_finish(uint8_t code) {

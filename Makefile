@@ -46,7 +46,7 @@ PERCH_PREFIX := $(WITH_PREFIX)/$(WITH_TRIPLE)
 PERCH_CC  := $(WITH_TRIPLE)-gcc
 PERCH_CXX := $(WITH_TRIPLE)-g++
 PERCH_CFLAGS := -march=$(WITH_MARCH) -mabi=$(WITH_MABI)
-PERCH_CFLAGS += -mcmodel=medany -mstrict-align -nostartfiles
+PERCH_CFLAGS += -mcmodel=medany -mstrict-align -nostartfiles -nostdlib
 PERCH_CFLAGS += -I.
 
 $(libperch_asm_objs): %.o: %.S
